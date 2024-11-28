@@ -1,0 +1,11 @@
+func(), main(): 1712 (text)
+g2, "Hello": 1512 (rodata)
+
+g1, g4, f2: 2332 (bss)
+g3, g5: 2432 (data)
+l2, l3, f1, f3: 2131 (stack)
+*l2: 2233 (heap)
+
+l1: 4631 (register)
+
+N, SOME_VALUE: 5644 (none)

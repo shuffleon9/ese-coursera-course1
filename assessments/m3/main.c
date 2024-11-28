@@ -31,7 +31,7 @@ extern char g5[N];
 
 int main()				// main: code/text	(r, program)	-> executable code
 {
-  register int l1;		// l1: register		(r, function)	-> register keyword
+  register int l1;		// l1: register		(rw, function)	-> register keyword
   int * l2;				// l2: data/stack	(rw, function)	-> local variable
 						// *l2: data/heap	(rw, indefinite)-> dynamic-allocated memory
   volatile int l3 = 12;	// l3: data/stack	(rw, function)	-> local variable
