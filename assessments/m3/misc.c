@@ -19,15 +19,15 @@
  */
 #include "misc.h"
 
-#define SOME_VALUE (6)
+#define SOME_VALUE (6)						// SOME_VALUE: none -> preprocessed (no memory)
 
-int g5[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+int g5[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};// g5: data/data	(rw, program)	-> initialized global/static variable
 
-int func(int * f1)
-{
-  static int f2;
-  unsigned int f3 = 0;
-  volatile char * f4 = "Hello World!\n";
+int func(int * f1)							// func: code/text	(r, program)	-> executable code
+{											// f1: data/stack	(rw, function)	-> function argument
+  static int f2;							// f2: data/bss		(rw, program)	-> zero-initialized global/static variable
+  unsigned int f3 = 0;						// f3: data/stack	(rw, function)	-> local variable
+  volatile char * f4 = "Hello World!\n"; 	// "Hello World": code/rodata -> (r, program) -> string literal
 
   f2++;
   *(&g5[0] + f2) = f3;

@@ -23,17 +23,18 @@
 #include <stdlib.h>
 #include "misc.h"
 
-static int g1;
-const int g2 = 45;
-char g3 = 12;
-char g4 = 0;
-extern char g5[N];
+static int g1;			// g1: data/bss 	(rw, program)	-> uninitialized global/static variable
+const int g2 = 45;		// g2: code/rodata 	(r, program)	-> const variable
+char g3 = 12;			// g3: data/data	(rw, program)	-> initialized global/static variable
+char g4 = 0;			// g4: data/bss		(rw, program)	-> zero-initialized global/static variable
+extern char g5[N];		
 
-int main()
+int main()				// main: code/text	(r, program)	-> executable code
 {
-  register int l1;
-  int * l2;
-  volatile int l3 = 12;
+  register int l1;		// l1: register		(r, function)	-> register keyword
+  int * l2;				// l2: data/stack	(rw, function)	-> local variable
+						// *l2: data/heap	(rw, indefinite)-> dynamic-allocated memory
+  volatile int l3 = 12;	// l3: data/stack	(rw, function)	-> local variable
   
   l2 = (int *) malloc( N * g2 * sizeof(char) );
 
