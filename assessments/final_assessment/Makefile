@@ -28,11 +28,11 @@ PLATFORM = MSP432
 
 
 #General Flags (Both Platforms)
-CFLAGS = -Wall -Werror -g -O0 -std=c99 -Wno-attributes
-CFLAGS += -D$(PLATFORM)
-TARGET = c1m2
+CFLAGS = -Wall -g -O0 -std=c99 -Wno-attributes
+CFLAGS += -D$(PLATFORM) 
+CFLAGS += -DCOURSE1 -DVERBOSE
+TARGET = c1final
 LDFLAGS = -Wl,-Map=$(TARGET).map
-DEPFLAGS = -MMD -MP -MF $(@:.o=.d)
 
 
 ifeq ($(PLATFORM),MSP432)
@@ -42,7 +42,7 @@ ifeq ($(PLATFORM),MSP432)
 	INCLUDES += $(INCLUDES2)
 
 	# Architectures Specific Flags
-	LINKER_FILE = ../msp432p401r.lds
+	LINKER_FILE = msp432p401r.lds
 	CPU = cortex-m4
 	ARCH = armv7e-m
 	SPECS = nosys.specs
@@ -54,27 +54,11 @@ else
 endif
 
 
-#Build rule 1
-%.i : %.c
-	$(CC) $(CFLAGS) $(INCLUDES) -E $< -o $@
-
-#Build rule 2
-%.asm : %.c
-	$(CC) $(CFLAGS) $(INCLUDES) -S $< -o $@
-
-#Build rule 3
 %.o : %.c
 	$(CC) $(CFLAGS) $(DEPFLAGS) $(INCLUDES) -c $< -o $@
 
-
-#Build rule 4: compile-all
 OBJS = $(SOURCES:.c=.o)
 
-.PHONY: compile-all
-compile-all: $(OBJS)
-
-
-#Build rule 5: build
 .PHONY: build
 build: $(TARGET).out
 	
@@ -82,7 +66,6 @@ $(TARGET).out: $(OBJS)
 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
 
 
-#Build rule 6: clean
 .PHONY: clean
 clean:
-	rm -f *.i *.asm *.o *.d *.map *.out
+	rm -f $(OBJS) $(TARGET).out $(TARGET).map

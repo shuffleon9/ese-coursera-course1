@@ -23,26 +23,9 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <platform.h>
 #include "stats.h"
 
-/* Size of the Data Set */
-#define SIZE (40)
-
-void main() {
-
-  unsigned char test[SIZE] = { 34, 201, 190, 154,   8, 194,   2,   6,
-                              114, 88,   45,  76, 123,  87,  25,  23,
-                              200, 122, 150, 90,   92,  87, 177, 244,
-                              201,   6,  12,  60,   8,   2,   5,  67,
-                                7,  87, 250, 230,  99,   3, 100,  90};
-
-  /* Other Variable Declarations Go Here */
-
-  /* Statistics and Printing Functions Go Here */
-  print_statistics(test, SIZE);
-  print_array(test, SIZE);
-
-}
 
 /* Add other Implementation File Code Here */
 void print_statistics(unsigned char* arr, unsigned int length) {
@@ -53,11 +36,13 @@ void print_statistics(unsigned char* arr, unsigned int length) {
 }
 
 void print_array(unsigned char* arr, unsigned int length) {
-    printf("Array: ");
+#ifdef VERBOSE 
+    PRINTF("Array: ");
     for (int i = 0; i < length; i++) {
-        printf("%d ", arr[i]);
+        PRINTF("%d ", arr[i]);
     }
-    printf("\n");
+    PRINTF("\n");
+#endif
 }
 
 unsigned char find_median(unsigned char* arr, unsigned int length) {
