@@ -24,7 +24,7 @@
 include sources.mk
 
 # Platform Overrides: HOST or MSP432
-PLATFORM = MSP432
+PLATFORM = HOST
 
 
 #General Flags (Both Platforms)
